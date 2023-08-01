@@ -1,0 +1,13 @@
+### Terraform ###
+
+# local .terraform directories
+**/.terraform/*
+*.terraform*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+# private keys
+*.pem
+*iac*

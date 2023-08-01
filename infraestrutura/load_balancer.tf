@@ -1,5 +1,5 @@
 resource "aws_alb" "ecs-alb" {
-  name = "ecs-app-node-alb"
+  name = "ecs-sphfs-alb"
   load_balancer_type = "application"
   security_groups = [ aws_security_group.alb-sc.id ]
   subnets = module.vpc.public_subnets
@@ -17,13 +17,13 @@ resource "aws_alb_listener" "ecs-alb-listener" {
 }
 
 resource "aws_alb_target_group" "ecs-alb-target" {
-  name = "ecs-app-node-target"
-  port = "6000"
+  name = "ecs-sphfs-target"
+  port = "80"
   protocol = "HTTP"
   target_type = "ip"
   vpc_id = module.vpc.vpc_id
 }
 
-output "app-node-dns" {
+output "sphfs-dns" {
   value = aws_alb.ecs-alb.dns_name
 }

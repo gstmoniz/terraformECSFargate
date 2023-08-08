@@ -3,10 +3,19 @@ resource "aws_security_group" "alb-sc" {
   vpc_id = module.vpc.vpc_id
 }
 
-resource "aws_security_group_rule" "alb-sc-in" {
+resource "aws_security_group_rule" "alb-sc-http" {
   type = "ingress"
-  from_port = 8080
-  to_port = 8080
+  from_port = 80
+  to_port = 80
+  protocol = "tcp"
+  cidr_blocks = [ "0.0.0.0/0" ]
+  security_group_id = aws_security_group.alb-sc.id
+}
+
+resource "aws_security_group_rule" "alb-sc-https" {
+  type = "ingress"
+  from_port = 443
+  to_port = 443
   protocol = "tcp"
   cidr_blocks = [ "0.0.0.0/0" ]
   security_group_id = aws_security_group.alb-sc.id
@@ -20,6 +29,8 @@ resource "aws_security_group_rule" "alb-sc-out" {
   cidr_blocks = [ "0.0.0.0/0" ]
   security_group_id = aws_security_group.alb-sc.id
 }
+
+# ECS Security Group -----
 
 resource "aws_security_group" "ecs-sc" {
   name = "ecs-securityGroup"

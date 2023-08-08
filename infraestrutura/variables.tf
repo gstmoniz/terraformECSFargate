@@ -5,3 +5,5 @@ variable "aws-region" {
 variable "default-name" {
   type = string
 }
+
+variable dns_name {}

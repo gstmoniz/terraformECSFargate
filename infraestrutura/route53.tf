@@ -1,10 +1,10 @@
 data "aws_route53_zone" "main-zone" {
-  name = "moniz.com.br"
+  name = "${var.dns_name}"
 }
 
 resource "aws_route53_record" "alb-record" {
   zone_id = data.aws_route53_zone.main-zone.zone_id
-  name = "alb.moniz.com.br"
+  name = "alb.${var.dns_name}"
   type = "A"
   
   alias {

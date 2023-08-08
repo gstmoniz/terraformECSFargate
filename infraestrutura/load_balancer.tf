@@ -6,7 +6,7 @@ resource "aws_alb" "ecs-alb" {
 }
 
 data "aws_acm_certificate" "certificate" {
-  domain      = "alb.moniz.com.br"
+  domain      = "alb.${var.dns_name}"
   statuses    = ["ISSUED"]
   most_recent = true
 }

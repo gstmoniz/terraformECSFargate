@@ -25,13 +25,13 @@ resource "aws_ecs_task_definition" "sphfs" {
   
   container_definitions = jsonencode([{
       "name" = "sphfs-container"
-      "image" = "docker.io/nginx:latest"
+      "image" = "docker.io/gstmoniz/temp-nginx:latest"
       "cpu" = 256
       "memory" = 512
       "essential" = true
       "portMappings" = [{
-          "containerPort" = 80
-          "hostPort" = 80
+          "containerPort" = 8080
+          "hostPort" = 8080
         }
       ]
     }]
@@ -47,7 +47,7 @@ resource "aws_ecs_service" "sphfs" {
   load_balancer {
     target_group_arn = aws_alb_target_group.ecs-alb-target.arn
     container_name = "sphfs-container"
-    container_port = 80
+    container_port = 8080
   }
 
   network_configuration {

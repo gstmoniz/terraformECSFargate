@@ -45,8 +45,8 @@ resource "aws_alb_listener" "redirect" {
 
 resource "aws_alb_target_group" "ecs-alb-target" {
   name = "ecs-sphfs-target"
-  port = "443"
-  protocol = "HTTPS"
+  port = "8080"
+  protocol = "HTTP"
   target_type = "ip"
   vpc_id = module.vpc.vpc_id
 }

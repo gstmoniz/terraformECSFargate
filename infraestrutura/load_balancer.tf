@@ -22,8 +22,29 @@ resource "aws_alb_listener" "ecs-alb-listener" {
   certificate_arn = data.aws_acm_certificate.certificate.arn
 
   default_action {
+    type = "fixed-response"
+    
+    fixed_response {
+      content_type = "text/plain"
+      message_body = "access denied"
+      status_code  = "403"
+    }
+  }
+}
+
+resource "aws_lb_listener_rule" "http-header" {
+  listener_arn = aws_alb_listener.ecs-alb-listener.arn
+
+  action {
     type = "forward"
     target_group_arn = aws_alb_target_group.ecs-alb-target.arn
+  }
+
+  condition {
+    http_header {
+      http_header_name = "access"
+      values = ["123456"]
+    }
   }
 }
 

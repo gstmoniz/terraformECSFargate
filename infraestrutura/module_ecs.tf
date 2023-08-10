@@ -39,6 +39,9 @@ resource "aws_ecs_task_definition" "sphfs" {
 }
 
 resource "aws_ecs_service" "sphfs" {
+  depends_on = [
+    aws_lb_listener_rule.http-header
+  ]
   name = "sphfs-service"
   cluster = module.ecs.cluster_id
   task_definition = aws_ecs_task_definition.sphfs.arn
